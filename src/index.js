@@ -1,13 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
+import NewForm from './NewForm';
+import NewFormwyup from './NewFormwyup';
+import MultiStep from './MultiStep';
+import DynamicForm from './DynamicForm';
+import RHFForm from './RHFForm';
+import RhfYupForm from './RhfYupForm';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <RhfYupForm />
   </React.StrictMode>
 );
 
