@@ -1,22 +1,14 @@
 import React from 'react';
-import Head from './AllComponents/Head/file';
+import Head from './AllComponents/Head/file4';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import { makeStyles } from '@mui/styles'; 
-import {Container, Grid, Typography} from '@mui/material';
-import Textfield from './AllComponents/Textfield';
-import Select from './AllComponents/Select';
-import DateTimePicker from './AllComponents/DataTimePicker';
-import Checkbox from './AllComponents/Checkbox';
-import Button from './AllComponents/Button';
+import { Container, Grid, Typography, Paper, Box } from '@mui/material';
+import Textfield from './AllComponents/Textfield/file6';
+import Select from './AllComponents/Select/file5';
+import DateTimePicker from './AllComponents/DataTimePicker/file3';
+import Checkbox from './AllComponents/Checkbox/file2';
+import Button from './AllComponents/Button/file1';
 import countries from './countrydata/countries.json';
-
-const useStyles = makeStyles((theme) => ({
-  formWrapper: {
-    marginTop: theme.spacing(5),
-    marginBottom: theme.spacing(8),
-  },
-}));
 
 const initialState = {
   firstName: '',
@@ -35,190 +27,79 @@ const initialState = {
 };
 
 const form = Yup.object().shape({
-  firstName: Yup.string()
-    .required('Required'),
-  lastName: Yup.string()
-    .required('Required'),
-  email: Yup.string()
-    .email('Invalid email.')
-    .required('Required'),
-  phone: Yup.number()
-    .integer()
-    .typeError('Please enter a valid phone number')
-    .required('Required'),
-  addressLine1: Yup.string()
-    .required('Required'),
+  firstName: Yup.string().required('Required'),
+  lastName: Yup.string().required('Required'),
+  email: Yup.string().email('Invalid email.').required('Required'),
+  phone: Yup.number().integer().typeError('Please enter a valid phone number').required('Required'),
+  addressLine1: Yup.string().required('Required'),
   addressLine2: Yup.string(),
-  city: Yup.string()
-    .required('Required'),
-  state: Yup.string()
-    .required('Required'),
-  country: Yup.string()
-    .required('Required'),
-  arrivalDate: Yup.date()
-    .required('Required'),
-  departureDate: Yup.date()
-    .required('Required'),
+  city: Yup.string().required('Required'),
+  state: Yup.string().required('Required'),
+  country: Yup.string().required('Required'),
+  arrivalDate: Yup.date().required('Required'),
+  departureDate: Yup.date().required('Required'),
   message: Yup.string(),
-  termsOfService: Yup.boolean()
-    .oneOf([true], 'The terms and conditions must be accepted.')
-    .required('The terms and conditions must be accepted.'),
+  termsOfService: Yup.boolean().oneOf([true], 'You must accept the terms').required('Required'),
 });
 
 const MUIForm = () => {
-  const classes = useStyles();
-
   return (
-    <Grid container>
-      <Grid item xs={12}>
-        <Head />
-      </Grid>
-      <Grid item xs={12}>
-        <Container maxWidth="md">
-          <div className={classes.formWrapper}>
+    <Container maxWidth="md">
+      <Head />
 
-            <Formik
-              initialValues={{
-                ...initialState
-              }}
-              validationSchema={form}
-              onSubmit={values => {
-                console.log(values);
-              }}
-            >
-              <Form>
+      <Paper elevation={3} sx={{ p: 4, mt: 5, mb: 8 }}>
+        <Typography variant="h4" align="center" gutterBottom>
+          Booking Form
+        </Typography>
 
-                <Grid container spacing={2}>
+        <Formik
+          initialValues={{ ...initialState }}
+          validationSchema={form}
+          onSubmit={(values) => console.log(values)}
+        >
+          <Form>
+            <Typography variant="h6" gutterBottom>Your Details</Typography>
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6}><Textfield name="firstName" label="First Name" fullWidth /></Grid>
+              <Grid item xs={12} sm={6}><Textfield name="lastName" label="Last Name" fullWidth /></Grid>
+              <Grid item xs={12}><Textfield name="email" label="Email" fullWidth /></Grid>
+              <Grid item xs={12}><Textfield name="phone" label="Phone" fullWidth /></Grid>
+              <Grid item xs={12}><Typography variant="h6" gutterBottom>Address</Typography></Grid>
+              <Grid item xs={12}><Textfield name="addressLine1" label="Address Line 1" fullWidth /></Grid>
+              <Grid item xs={12}><Textfield name="addressLine2" label="Address Line 2" fullWidth /></Grid>
+              <Grid item xs={12} sm={6}><Textfield name="city" label="City" fullWidth /></Grid>
+              <Grid item xs={12} sm={6}><Textfield name="state" label="State" fullWidth /></Grid>
+              <Grid item xs={12}><Select name="country" label="Country" options={countries} fullWidth /></Grid>
+            </Grid>
 
-                  <Grid item xs={12}>
-                    <Typography>
-                      Your details
-                    </Typography>
-                  </Grid>
+            <Box mt={4}>
+              <Typography variant="h6" gutterBottom>Booking Information</Typography>
+              <Grid container spacing={2}>
+                <Grid item xs={12} sm={6}><DateTimePicker name="arrivalDate" label="Arrival Date" fullWidth /></Grid>
+                <Grid item xs={12} sm={6}><DateTimePicker name="departureDate" label="Departure Date" fullWidth /></Grid>
+              </Grid>
+            </Box>
 
-                  <Grid item xs={6}>
-                    <Textfield
-                      name="firstName"
-                      label="First Name"
-                    />
-                  </Grid>
-
-                  <Grid item xs={6}>
-                    <Textfield
-                      name="lastName"
-                      label="Last Name"
-                    />
-                  </Grid>
-
-                  <Grid item xs={12}>
-                    <Textfield
-                      name="email"
-                      label="Email"
-                    />
-                  </Grid>
-
-                  <Grid item xs={12}>
-                    <Textfield
-                      name="phone"
-                      label="Phone"
-                    />
-                  </Grid>
-
-                  <Grid item xs={12}>
-                    <Typography>
-                      Address
-                    </Typography>
-                  </Grid>
-
-                  <Grid item xs={12}>
-                    <Textfield
-                      name="addressLine1"
-                      label="Address Line 1"
-                    />
-                  </Grid>
-
-                  <Grid item xs={12}>
-                    <Textfield
-                      name="addressLine2"
-                      label="Address Line 2"
-                    />
-                  </Grid>
-
-                  <Grid item xs={6}>
-                    <Textfield
-                      name="city"
-                      label="City"
-                    />
-                  </Grid>
-
-                  <Grid item xs={6}>
-                    <Textfield
-                      name="state"
-                      label="State"
-                    />
-                  </Grid>
-
-                  <Grid item xs={12}>
-                    <Select
-                      name="country"
-                      label="Country"
-                      options={countries}
-                    />
-                  </Grid>
-
-                  <Grid item xs={12}>
-                    <Typography>
-                      Booking information
-                    </Typography>
-                  </Grid>
-
-                  <Grid item xs={6}>
-                    <DateTimePicker
-                      name="arrivalDate"
-                      label="Arrival Date"
-                    />
-                  </Grid>
-
-                  <Grid item xs={6}>
-                    <DateTimePicker
-                      name="departureDate"
-                      label="Departure Date"
-                    />
-                  </Grid>
-
-                  <Grid item xs={12}>
-                    <Textfield
-                      name="message"
-                      label="Message"
-                      multiline={true}
-                      rows={4}
-                    />
-                  </Grid>
-
-                  <Grid item xs={12}>
-                    <Checkbox
-                      name="termsOfService"
-                      legend="Terms Of Service"
-                      label="I agree"
-                    />
-                  </Grid>
-
-                  <Grid item xs={12}>
-                    <Button>
-                      Submit Form
-                    </Button>
-                  </Grid>
-
-
+            <Box mt={4}>
+              <Grid container spacing={2}>
+                <Grid item xs={12} md={8}>
+                  <Textfield name="message" label="Message" multiline rows={4} fullWidth />
                 </Grid>
+                <Grid item xs={12} md={4}>
+                  <Checkbox name="termsOfService" legend="Terms Of Service" label="I agree" />
+                </Grid>
+              </Grid>
+            </Box>
 
-              </Form>
-            </Formik>
-
-          </div>
-        </Container>
-      </Grid>
-    </Grid>
+            <Box mt={4}>
+              <Button variant="contained" color="primary" fullWidth>
+                Submit Form
+              </Button>
+            </Box>
+          </Form>
+        </Formik>
+      </Paper>
+    </Container>
   );
 };
 

@@ -1,9 +1,9 @@
 import React from 'react';
 import { TextField } from '@mui/material';
-import { DateTimePicker } from '@mui/x-date-pickers';
+import { DateTimePicker as MuiDateTimePicker } from '@mui/x-date-pickers';
 import { useField } from 'formik';
 
-const DateTimePicker = ({
+const DateTimePickerwrap = ({
   name,
   ...otherProps
 }) => {
@@ -32,4 +32,4 @@ const DateTimePicker = ({
   );
 };
 
-export default DateTimePicker;
+export default DateTimePickerwrap;

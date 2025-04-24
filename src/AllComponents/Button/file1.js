@@ -20,12 +20,10 @@ const Buttonwrap = ({
   }
 
   return (
-    <Button
-      {...configButton}
-    >
+    <MuiButton {...configButton}>
       {children}
-    </Button>
+    </MuiButton>
   );
-};
+  };
 
 export default Buttonwrap;
